@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock Price Prediction</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Stock Price Prediction</h1>
+        <form id="stockForm" onsubmit="return false;">
+            <label for="stockInput">Select or Type Stock:</label>
+            <div class="stock-dropdown">
+                <input type="text" id="stockInput" name="stockInput" placeholder="Type stock name..." autocomplete="off">
+                <div id="stockDropdown" class="dropdown-content">
+                    {% for stock in stocks %}
+                    <div class="dropdown-item" data-value="{{ stock }}">{{ stock }}</div>
+                    {% endfor %}
+                </div>
+            </div>
+            <label for="daysInput">Future Days:</label>
+            <input type="number" id="daysInput" name="daysInput" min="1" value="30" required>
+            <button type="submit" id="predictButton">Predict</button>
+        </form>
+        <div id="chartContainer" style="display: none;">
+            <h2>Historical and Predicted Prices</h2>
+            <canvas id="stockChart"></canvas>
+        </div>
+        <div id="metricsContainer">
+            <h2>Model Performance Metrics</h2>
+            <div id="metrics"></div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
+</body>
+</html>
